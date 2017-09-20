@@ -1,0 +1,24 @@
+version: '2'
+services:
+    wiki:
+        image: requarks/wiki
+        environment:
+            SESSION_SECRET: ${SESSION_SECRET}
+            WIKI_ADMIN_EMAIL: ${WIKI_ADMIN_EMAIL}
+            PORT: 80
+        ports:
+            - "${PORT}:80"
+        volumes:
+            - ./config.yml:/var/wiki/config.yml:ro
+            - ./wiki-test.pem:/github.pem
+        links:
+            - wiki-db
+
+    wiki-db:
+        image: mongo:latest
+        volumes:
+            - db_data:/data/db
+
+# We want persistent, anonymous data volumes
+volumes:
+    db_data:

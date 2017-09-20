@@ -8,7 +8,7 @@
 # Title of this site
 # ---------------------------------------------------------------------
 
-title: Wiki
+title: SMR Wiki
 
 # ---------------------------------------------------------------------
 # Full public path to the site, without the trailing slash
@@ -22,7 +22,7 @@ host: http://localhost
 # ---------------------------------------------------------------------
 # To use process.env.PORT, comment the line below:
 
-port: 80
+#port: 80
 
 # ---------------------------------------------------------------------
 # Data Directories
@@ -55,18 +55,18 @@ langRtl: false
 # Site Authentication
 # ---------------------------------------------------------------------
 
-public: false
+public: true
 
 auth:
-  defaultReadAccess: false
+  defaultReadAccess: true
   local:
     enabled: true
   google:
-    enabled: true
+    enabled: false
     clientId: GOOGLE_CLIENT_ID
     clientSecret: GOOGLE_CLIENT_SECRET
   microsoft:
-    enabled: true
+    enabled: false
     clientId: MS_APP_ID
     clientSecret: MS_APP_SECRET
   facebook:
@@ -102,21 +102,21 @@ auth:
 # ---------------------------------------------------------------------
 # Use a long and unique random string (256-bit keys are perfect!)
 
-sessionSecret: 1234567890abcdefghijklmnopqrstuvxyz
+sessionSecret: $SESSION_SECRET
 
 # ---------------------------------------------------------------------
 # Database Connection String
 # ---------------------------------------------------------------------
 # You can also use an ENV variable by using $ENV_VAR_NAME as the value
 
-db: mongodb://localhost:27017/wiki
+db: mongodb://wiki-db:27017/wiki
 
 # ---------------------------------------------------------------------
 # Git Connection Info
 # ---------------------------------------------------------------------
 
 git:
-  url: https://github.com/Organization/Repo
+  url: git@github.com:hemberger/smr-wiki
   branch: master
   auth:
 
@@ -124,16 +124,16 @@ git:
     type: ssh
 
     # Only for Basic authentication:
-    username: marty
-    password: MartyMcFly88
+    username: USERNAME
+    password: PASSWORD
 
     # Only for SSH authentication:
-    privateKey: /etc/wiki/keys/git.pem
+    privateKey: /github.pem
 
     sslVerify: true
 
   # Default email to use as commit author
-  serverEmail: marty@example.com
+  serverEmail: user@no-email.com
 
   # Whether to use user email as author in commits
   showUserEmail: true

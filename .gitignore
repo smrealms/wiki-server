@@ -1,0 +1,5 @@
+# .env file for docker-compose
+/.env
+
+# SSH key for GitHub
+/wiki-test.pem

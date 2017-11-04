@@ -6,6 +6,7 @@ Requirements:
 SESSION_SECRET=
 WIKI_ADMIN_EMAIL=
 PORT=
+HOST=
 ```
 
 To start the wiki, run:

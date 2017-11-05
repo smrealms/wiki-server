@@ -6,6 +6,10 @@ services:
             SESSION_SECRET: ${SESSION_SECRET}
             WIKI_ADMIN_EMAIL: ${WIKI_ADMIN_EMAIL}
             HOST: ${HOST}:${PORT}
+            FACEBOOK_APP_ID: ${FACEBOOK_APP_ID}
+            FACEBOOK_APP_SECRET: ${FACEBOOK_APP_SECRET}
+            GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
+            GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
         ports:
             - "${PORT}:80"
         volumes:

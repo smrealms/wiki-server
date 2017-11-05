@@ -5,8 +5,7 @@ services:
         environment:
             SESSION_SECRET: ${SESSION_SECRET}
             WIKI_ADMIN_EMAIL: ${WIKI_ADMIN_EMAIL}
-            PORT: 80
-            HOST: ${HOST}
+            HOST: ${HOST}:${PORT}
         ports:
             - "${PORT}:80"
         volumes:

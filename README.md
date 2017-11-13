@@ -5,8 +5,7 @@ Requirements:
 # Environment variables for docker-compose
 SESSION_SECRET=
 WIKI_ADMIN_EMAIL=
-PORT=
-HOST=
+HOST=  # External URL (including port) that users will connect to
 FACEBOOK_APP_ID=
 FACEBOOK_APP_SECRET=
 GITHUB_CLIENT_ID=

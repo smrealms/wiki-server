@@ -13,6 +13,7 @@ services:
 
     wiki:
         image: requarks/wiki
+        restart: always
         container_name: wiki_host
         environment:
             SESSION_SECRET: ${SESSION_SECRET}

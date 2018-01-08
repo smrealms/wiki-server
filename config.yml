@@ -116,7 +116,7 @@ db: mongodb://wiki-db:27017/wiki
 # ---------------------------------------------------------------------
 
 git:
-  url: git@github.com:hemberger/smr-wiki
+  url: git@github.com:smrealms/wiki-data
   branch: master
   auth:
 

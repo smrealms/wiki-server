@@ -25,7 +25,7 @@ services:
             GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
         volumes:
             - ./config.yml:/var/wiki/config.yml:ro
-            - ./wiki-test.pem:/github.pem
+            - ./wiki-data.pem:/github.pem
         links:
             - wiki-db
 

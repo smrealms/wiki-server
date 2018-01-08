@@ -2,4 +2,4 @@
 /.env
 
 # SSH key for GitHub
-/wiki-test.pem
+/wiki-data.pem

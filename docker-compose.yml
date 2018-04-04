@@ -9,8 +9,6 @@ services:
             - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
             - /etc/letsencrypt:/etc/letsencrypt:ro
             - ./.certbot:/www-certbot
-        links:
-            - wiki
 
     wiki:
         image: requarks/wiki
@@ -27,8 +25,9 @@ services:
         volumes:
             - ./config.yml:/var/wiki/config.yml:ro
             - ./wiki-data.pem:/github.pem
-        links:
+        depends_on:
             - wiki-db
+            - nginx
 
     wiki-db:
         image: mongo:latest

@@ -14,5 +14,11 @@ GITHUB_CLIENT_SECRET=
 
 To start the wiki, run:
 ```
-docker-compose up --build -d
+docker-compose up --build -d wiki
+```
+
+To update the SSL certificate, run:
+```
+docker-compose run --rm certbot
+docker-compose restart nginx
 ```

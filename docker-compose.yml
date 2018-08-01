@@ -30,7 +30,7 @@ services:
             - nginx
 
     wiki-db:
-        image: mongo:latest
+        image: mongo:3
         volumes:
             - db_data:/data/db
 

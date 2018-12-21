@@ -1,5 +1,7 @@
 Requirements:
  * A file called `wiki-data.pem` that is set up as a Deploy Key on GitHub
+ * A reverse proxy forwarding to port 80 of the container (it is currently
+   set up to work "out of the box" with traefik)
  * A `.env` file following this format:
 ```
 # Environment variables for docker-compose
@@ -14,11 +16,5 @@ GITHUB_CLIENT_SECRET=
 
 To start the wiki, run:
 ```
-docker-compose up --build -d wiki
-```
-
-To update the SSL certificate, run:
-```
-docker-compose run --rm certbot
-docker-compose restart nginx
+docker-compose up -d wiki
 ```

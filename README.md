@@ -18,3 +18,7 @@ To start the wiki, run:
 ```
 docker-compose up -d wiki
 ```
+
+After the first time the container is started, log into the wiki
+with the `WIKI_ADMIN_EMAIL` credentials with the default wiki.js
+admin password and immediately change the password.

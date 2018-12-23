@@ -45,3 +45,4 @@ services:
             - "traefik.enable=false"
         volumes:
             - ./db:/data/db
+            - ./backup:/backup

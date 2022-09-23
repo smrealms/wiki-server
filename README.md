@@ -16,7 +16,7 @@ GITHUB_CLIENT_SECRET=
 
 To start the wiki, run:
 ```
-docker-compose up -d wiki
+docker compose up -d wiki
 ```
 
 After the first time the container is started, log into the wiki

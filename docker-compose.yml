@@ -40,3 +40,21 @@ services:
         volumes:
             - ./db:/data/db
             - ./backup:/backup
+
+    wiki2:
+        image: requarks/wiki:2
+        restart: unless-stopped
+        container_name: smr-wiki2
+        networks:
+            - frontend
+            - backend
+        user: root
+        environment:
+            DB_TYPE: sqlite
+            DB_FILEPATH: /db/wiki.sqlite
+        volumes:
+            - ./wiki-db/:/db/
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.services.wiki.loadbalancer.server.port=3000"
+            - "traefik.http.routers.wiki.rule=Host(`wiki.smrealms.de`)"

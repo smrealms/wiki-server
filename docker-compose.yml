@@ -42,7 +42,7 @@ services:
             - ./backup:/backup
 
     wiki2:
-        image: requarks/wiki:2
+        image: requarks/wiki:2.5.317
         restart: unless-stopped
         container_name: smr-wiki2
         networks:

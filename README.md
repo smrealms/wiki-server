@@ -1,24 +1,18 @@
-Requirements:
- * A file called `wiki-data.pem` that is set up as a Deploy Key on GitHub
- * A reverse proxy forwarding to port 80 of the container (it is currently
-   set up to work "out of the box" with traefik)
- * A `.env` file following this format:
-```
-# Environment variables for docker-compose
-SESSION_SECRET=
-WIKI_ADMIN_EMAIL=
-HOST=  # External URL (including port) that users will connect to
-FACEBOOK_APP_ID=
-FACEBOOK_APP_SECRET=
-GITHUB_CLIENT_ID=
-GITHUB_CLIENT_SECRET=
-```
+# SMR Wiki
 
-To start the wiki, run:
-```
-docker compose up -d wiki
-```
+This deployment runs Wiki.js v3 with PostgreSQL behind Traefik at
+`wiki.smrealms.de`. The `wiki3-db` Docker volume stores the database.
 
-After the first time the container is started, log into the wiki
-with the `WIKI_ADMIN_EMAIL` credentials with the default wiki.js
-admin password and immediately change the password.
+## Configuration
+
+Copy `.env.sample` to `.env`, fill in the values, and restrict its permissions.
+
+Start the wiki with `docker compose up -d wiki`. Traefik must be connected to
+the `frontend` network and forward HTTPS and WebSockets. In Wiki.js, enable
+**Administration → Security → Trust X-Forwarded-* Proxy Headers**. Configure
+Git storage and authentication in the administration area. Wiki.js 3 does not
+configure those settings automatically.
+
+## Backups
+
+Run `./db_backup.sh` to create a compressed PostgreSQL dump in `backup/`.

@@ -1,60 +1,51 @@
 networks:
-  frontend:
-      name: frontend
-      external: false
-  backend:
-      name: backend
-      external: false
+    frontend:
+        name: frontend
+    backend:
+        name: backend
 
 services:
     wiki:
-        image: requarks/wiki
+        image: requarks/wiki:3.4.0
         restart: unless-stopped
         container_name: smr-wiki
         networks:
             - frontend
             - backend
         environment:
-            SESSION_SECRET: ${SESSION_SECRET}
-            WIKI_ADMIN_EMAIL: ${WIKI_ADMIN_EMAIL}
-            HOST: ${HOST}
-            FACEBOOK_APP_ID: ${FACEBOOK_APP_ID}
-            FACEBOOK_APP_SECRET: ${FACEBOOK_APP_SECRET}
-            GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
-            GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+            ADMIN_EMAIL: ${ADMIN_EMAIL}
+            ADMIN_PASS: ${ADMIN_PASS}
+            DB_HOST: wiki-db
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASS: ${DB_PASS}
         volumes:
-            - ./config.yml:/var/wiki/config.yml:ro
-            - ./wiki-data.pem:/github.pem
+            - ./wiki-data.pem:/github.pem:ro
         labels:
             - "traefik.enable=true"
-            - "traefik.http.services.wiki.loadbalancer.server.port=80"
-            - "traefik.http.routers.wiki.rule=Host(`wiki.smrealms.de`)"
-        depends_on:
-            - wiki-db
-
-    wiki-db:
-        image: mongo:3
-        restart: unless-stopped
-        networks:
-            - backend
-        volumes:
-            - ./db:/data/db
-            - ./backup:/backup
-
-    wiki2:
-        image: requarks/wiki:2.5.317
-        restart: unless-stopped
-        container_name: smr-wiki2
-        networks:
-            - frontend
-            - backend
-        user: root
-        environment:
-            DB_TYPE: sqlite
-            DB_FILEPATH: /db/wiki.sqlite
-        volumes:
-            - ./wiki-db/:/db/
-        labels:
-            - "traefik.enable=true"
+            - "traefik.docker.network=frontend"
             - "traefik.http.services.wiki.loadbalancer.server.port=3000"
             - "traefik.http.routers.wiki.rule=Host(`wiki.smrealms.de`)"
+        depends_on:
+            wiki-db:
+                condition: service_healthy
+
+    wiki-db:
+        image: postgres:18
+        restart: unless-stopped
+        networks:
+            - backend
+        environment:
+            POSTGRES_DB: ${DB_NAME}
+            POSTGRES_USER: ${DB_USER}
+            POSTGRES_PASSWORD: ${DB_PASS}
+        volumes:
+            - wiki3-db:/var/lib/postgresql
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+            interval: 10s
+            timeout: 5s
+            retries: 10
+
+volumes:
+    wiki3-db:
